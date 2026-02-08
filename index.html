@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thoughtful Human — Apparel for the Conscious Journey</title>
+  <meta name="description" content="Clothing that speaks to the soul. Affirmations, ancient wisdom, and mindful design — ethically made apparel for those who move through life with purpose.">
+  <meta property="og:title" content="Thoughtful Human — Apparel for the Conscious Journey">
+  <meta property="og:description" content="Clothing that speaks to the soul. Affirmations, ancient wisdom, and mindful design for those who move through life with purpose.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1200&h=630&fit=crop">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Thoughtful Human — Apparel for the Conscious Journey">
+  <meta name="twitter:description" content="Clothing that speaks to the soul. Affirmations, ancient wisdom, and mindful design for those who move through life with purpose.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◇</text></svg>">
   <script src="https://js.stripe.com/v3/"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Nunito+Sans:wght@200;300;400;600&display=swap" rel="stylesheet">
@@ -122,6 +131,41 @@
     
     .page { display: none; }
     .page.active { display: block; animation: fadeIn 0.5s ease; }
+
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; justify-content: center; align-items: center; animation: fadeIn 0.3s ease; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: #FDFBF7; max-width: 520px; width: 90%; padding: 48px; position: relative; animation: fadeUp 0.4s ease; }
+    .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; color: #999; cursor: pointer; padding: 8px; line-height: 1; }
+    .modal-close:hover { color: #2C2C2C; }
+    .modal h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 400; margin-bottom: 8px; }
+    .modal .modal-subtitle { font-family: 'Nunito Sans', sans-serif; font-size: 13px; color: #666; line-height: 1.7; margin-bottom: 32px; font-weight: 300; }
+    .modal label { display: block; font-family: 'Nunito Sans', sans-serif; font-size: 10px; letter-spacing: 2px; color: #999; margin-bottom: 8px; }
+    .modal input, .modal textarea, .modal select { width: 100%; padding: 14px 16px; border: 1px solid #E8E4DD; background: transparent; font-family: 'Nunito Sans', sans-serif; font-size: 13px; color: #2C2C2C; margin-bottom: 20px; }
+    .modal input:focus, .modal textarea:focus, .modal select:focus { outline: none; border-color: #999; }
+    .modal textarea { min-height: 100px; resize: vertical; }
+
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: #2C2C2C; margin: 5px 0; transition: all 0.3s ease; }
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(253,251,247,0.98); backdrop-filter: blur(20px); flex-direction: column; padding: 24px 40px; gap: 20px; border-bottom: 1px solid #F0EBE3; }
+      .nav-links.open { display: flex; }
+      .collections-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 36px; }
+      .cart-item { grid-template-columns: 60px 1fr; gap: 16px; }
+      .cart-item .cart-qty, .cart-item > div:last-child { grid-column: 2; }
+      .cart-footer { flex-direction: column; gap: 24px; align-items: stretch; text-align: center; }
+      .product-detail-grid { grid-template-columns: 1fr; gap: 32px; }
+      .email-form { flex-direction: column; align-items: center; }
+      .footer-inner { flex-direction: column; }
+      .footer-links { flex-direction: column; gap: 24px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { padding: 14px 20px; }
+      .hero-content { padding: 0 20px; }
+      .collections { padding: 60px 20px 80px; }
+      .products { padding: 20px 20px 80px; }
+    }
     
     .notification { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; justify-content: center; padding: 16px; animation: notif 0.4s ease; }
     .notification-inner { background: #2C2C2C; color: #FDFBF7; padding: 14px 40px; font-family: 'Nunito Sans', sans-serif; font-size: 12px; letter-spacing: 2px; }
@@ -186,10 +230,13 @@
         <div class="nav-logo-sub">APPAREL FOR THE</div>
         <div class="nav-logo-main">Thoughtful Human</div>
       </button>
-      <div class="nav-links">
-        <button class="nav-link" onclick="showPage('home')">Collections</button>
-        <button class="nav-link" onclick="showPage('about')">Our Why</button>
-        <button class="nav-link" onclick="showPage('cart')" style="position: relative;">
+      <button class="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <button class="nav-link" onclick="showPage('home');closeMobileNav()">Collections</button>
+        <button class="nav-link" onclick="showPage('about');closeMobileNav()">Our Why</button>
+        <button class="nav-link" onclick="showPage('cart');closeMobileNav()" style="position: relative;">
           Cart
           <span id="cart-badge" class="cart-count" style="display: none;">0</span>
         </button>
@@ -302,7 +349,7 @@
     <section class="partners">
       <div class="section-tag">PARTNERING WITH STUDIOS & CENTERS</div>
       <p class="partners-quote">"Bring conscious apparel to your community. Special wholesale pricing for yoga studios, meditation centers, and Buddhist sanghas."</p>
-      <button class="btn-outline" style="margin-top: 32px;">BECOME A PARTNER</button>
+      <button class="btn-outline" style="margin-top: 32px;" onclick="openModal('partner-modal')">BECOME A PARTNER</button>
     </section>
   </div>
 
@@ -382,6 +429,49 @@
     </div>
   </div>
 
+  <!-- CONTACT MODAL -->
+  <div id="contact-modal" class="modal-overlay" onclick="if(event.target===this)closeModal('contact-modal')">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('contact-modal')">×</button>
+      <h2>Get in Touch</h2>
+      <p class="modal-subtitle">Questions, collaborations, or just want to say hello? We'd love to hear from you.</p>
+      <label>NAME</label>
+      <input type="text" id="contact-name" placeholder="Your name">
+      <label>EMAIL</label>
+      <input type="email" id="contact-email" placeholder="your@email.com">
+      <label>MESSAGE</label>
+      <textarea id="contact-message" placeholder="What's on your mind?"></textarea>
+      <button class="btn-primary" style="width: 100%;" onclick="submitContact()">SEND MESSAGE</button>
+    </div>
+  </div>
+
+  <!-- PARTNER MODAL -->
+  <div id="partner-modal" class="modal-overlay" onclick="if(event.target===this)closeModal('partner-modal')">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('partner-modal')">×</button>
+      <h2>Become a Partner</h2>
+      <p class="modal-subtitle">Bring conscious apparel to your studio or center. Special wholesale pricing for yoga studios, meditation centers, and Buddhist sanghas.</p>
+      <label>STUDIO / CENTER NAME</label>
+      <input type="text" id="partner-studio" placeholder="Your studio or center name">
+      <label>YOUR NAME</label>
+      <input type="text" id="partner-name" placeholder="Your name">
+      <label>EMAIL</label>
+      <input type="email" id="partner-email" placeholder="your@email.com">
+      <label>TYPE</label>
+      <select id="partner-type">
+        <option value="">Select your type...</option>
+        <option value="yoga">Yoga Studio</option>
+        <option value="meditation">Meditation Center</option>
+        <option value="sangha">Buddhist Sangha</option>
+        <option value="wellness">Wellness Center</option>
+        <option value="other">Other</option>
+      </select>
+      <label>TELL US ABOUT YOUR COMMUNITY</label>
+      <textarea id="partner-message" placeholder="How many members, what practices you offer, etc."></textarea>
+      <button class="btn-primary" style="width: 100%;" onclick="submitPartner()">APPLY FOR PARTNERSHIP</button>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
@@ -413,14 +503,14 @@
         </div>
         <div>
           <div class="footer-col-title">CONNECT</div>
-          <button class="nav-link footer-link">Studio Partners</button>
+          <button class="nav-link footer-link" onclick="openModal('partner-modal')">Studio Partners</button>
           <button class="nav-link footer-link" onclick="showPage('about')">Our Why</button>
-          <button class="nav-link footer-link">Contact</button>
+          <button class="nav-link footer-link" onclick="openModal('contact-modal')">Contact</button>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Thoughtful Human. Made with intention.</p>
+      <p class="footer-copy">© 2026 Thoughtful Human. Made with intention.</p>
     </div>
   </footer>
 
@@ -668,11 +758,17 @@
     }
 
     function submitEmail() {
-      const email = document.getElementById('email-input').value;
-      if (email) {
-        showNotification('Welcome to the movement! Check your inbox.');
-        document.getElementById('email-input').value = '';
+      const email = document.getElementById('email-input').value.trim();
+      if (!email) {
+        showNotification('Please enter your email address.');
+        return;
       }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showNotification('Please enter a valid email address.');
+        return;
+      }
+      showNotification('Welcome to the movement! Check your inbox.');
+      document.getElementById('email-input').value = '';
     }
 
     // Stripe Checkout Handler
@@ -781,6 +877,82 @@
     
     // Initialize on page load
     initCollectionImages();
+
+    // Mobile nav
+    function toggleMobileNav() {
+      document.getElementById('nav-links').classList.toggle('open');
+    }
+    function closeMobileNav() {
+      document.getElementById('nav-links').classList.remove('open');
+    }
+
+    // Modals
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Contact form
+    function submitContact() {
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+      if (!name || !email || !message) {
+        showNotification('Please fill in all fields.');
+        return;
+      }
+      if (!isValidEmail(email)) {
+        showNotification('Please enter a valid email address.');
+        return;
+      }
+      showNotification('Message sent! We\'ll be in touch soon.');
+      closeModal('contact-modal');
+      document.getElementById('contact-name').value = '';
+      document.getElementById('contact-email').value = '';
+      document.getElementById('contact-message').value = '';
+    }
+
+    // Partner form
+    function submitPartner() {
+      const studio = document.getElementById('partner-studio').value.trim();
+      const name = document.getElementById('partner-name').value.trim();
+      const email = document.getElementById('partner-email').value.trim();
+      const type = document.getElementById('partner-type').value;
+      if (!studio || !name || !email || !type) {
+        showNotification('Please fill in all required fields.');
+        return;
+      }
+      if (!isValidEmail(email)) {
+        showNotification('Please enter a valid email address.');
+        return;
+      }
+      showNotification('Application received! We\'ll reach out within 48 hours.');
+      closeModal('partner-modal');
+      document.getElementById('partner-studio').value = '';
+      document.getElementById('partner-name').value = '';
+      document.getElementById('partner-email').value = '';
+      document.getElementById('partner-type').value = '';
+      document.getElementById('partner-message').value = '';
+    }
+
+    // Email validation helper
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    // Close modals on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.active').forEach(m => {
+          m.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      }
+    });
   </script>
 </body>
 </html>
