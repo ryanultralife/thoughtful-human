@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thoughtful Human — Apparel for the Conscious Journey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Nunito+Sans:wght@200;300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    ::selection { background: #D4AF37; color: #fff; }
+    html { scroll-behavior: smooth; }
+    body { font-family: Georgia, serif; background: #FDFBF7; color: #2C2C2C; }
+    
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes notif { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    
+    .fade-up { animation: fadeUp 0.8s ease both; }
+    .fade-up-1 { animation-delay: 0.1s; }
+    .fade-up-2 { animation-delay: 0.2s; }
+    .fade-up-3 { animation-delay: 0.3s; }
+    .fade-up-4 { animation-delay: 0.4s; }
+    
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(253,251,247,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid #F0EBE3; }
+    .nav-inner { max-width: 1400px; margin: 0 auto; padding: 18px 40px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { background: none; border: none; cursor: pointer; text-align: left; }
+    .nav-logo-sub { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 4px; color: #999; font-weight: 300; }
+    .nav-logo-main { font-family: 'Cormorant Garamond', serif; font-size: 26px; letter-spacing: 2px; color: #2C2C2C; font-weight: 500; margin-top: -2px; }
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-link { color: #666; text-decoration: none; font-family: 'Nunito Sans', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: color 0.3s; padding: 8px 0; border: none; background: none; font-weight: 400; }
+    .nav-link:hover { color: #2C2C2C; }
+    .cart-count { position: absolute; top: -2px; right: -14px; width: 18px; height: 18px; border-radius: 50%; background: #2C2C2C; color: #FDFBF7; font-size: 10px; font-family: 'Nunito Sans', sans-serif; display: flex; align-items: center; justify-content: center; }
+    
+    .hero { padding-top: 80px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; background: linear-gradient(180deg, #FDFBF7 0%, #F8F5EF 100%); }
+    .hero-circle-1 { position: absolute; top: 20%; left: 10%; width: 200px; height: 200px; border: 1px solid #E8E4DD; border-radius: 50%; opacity: 0.5; }
+    .hero-circle-2 { position: absolute; bottom: 25%; right: 12%; width: 120px; height: 120px; border: 1px solid #E8E4DD; border-radius: 50%; opacity: 0.4; }
+    .hero-content { max-width: 800px; padding: 0 40px; }
+    .hero-tag { font-family: 'Nunito Sans', sans-serif; font-size: 11px; letter-spacing: 6px; color: #999; margin-bottom: 32px; font-weight: 300; }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 7vw, 72px); font-weight: 300; line-height: 1.1; color: #2C2C2C; margin-bottom: 28px; }
+    .hero h1 em { font-style: italic; }
+    .hero p { font-family: 'Nunito Sans', sans-serif; font-size: 15px; color: #666; max-width: 520px; margin: 0 auto 48px; line-height: 1.9; font-weight: 300; }
+    .scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); animation: float 3s ease-in-out infinite; }
+    .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, #D4C4B0, transparent); }
+    
+    .btn-primary { background: #2C2C2C; color: #FDFBF7; border: none; padding: 16px 40px; font-family: 'Nunito Sans', sans-serif; font-size: 12px; letter-spacing: 3px; font-weight: 400; cursor: pointer; transition: all 0.4s ease; }
+    .btn-primary:hover { background: #1a1a1a; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+    .btn-outline { background: transparent; color: #2C2C2C; border: 1px solid #D4C4B0; padding: 14px 32px; font-family: 'Nunito Sans', sans-serif; font-size: 11px; letter-spacing: 2px; font-weight: 400; cursor: pointer; transition: all 0.3s ease; }
+    .btn-outline:hover { border-color: #2C2C2C; background: #2C2C2C; color: #FDFBF7; }
+    
+    .collections { max-width: 1400px; margin: 0 auto; padding: 100px 40px 120px; }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-tag { font-family: 'Nunito Sans', sans-serif; font-size: 11px; letter-spacing: 5px; color: #999; margin-bottom: 16px; font-weight: 300; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 400; }
+    
+    .collections-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    @media (max-width: 768px) { .collections-grid { grid-template-columns: 1fr; } }
+    
+    .collection-card { position: relative; height: 420px; display: flex; align-items: flex-end; padding: 40px; overflow: hidden; cursor: pointer; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .collection-card:hover { transform: scale(0.98); }
+    .collection-card:hover .collection-overlay { opacity: 0.3; }
+    .collection-card:hover .collection-content { transform: translateY(-10px); }
+    .collection-overlay { position: absolute; inset: 0; background: #000; opacity: 0.15; transition: opacity 0.6s ease; }
+    .collection-content { position: relative; z-index: 2; color: #fff; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .collection-icon { font-family: 'Cormorant Garamond', serif; font-size: 56px; line-height: 1; margin-bottom: 8px; opacity: 0.3; }
+    .collection-name { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; margin-bottom: 8px; }
+    .collection-tagline { font-family: 'Nunito Sans', sans-serif; font-size: 13px; font-weight: 300; opacity: 0.9; letter-spacing: 1px; }
+    
+    .movement { background: #2C2C2C; color: #FDFBF7; padding: 100px 40px; }
+    .movement-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .movement h2 { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 300; margin-bottom: 24px; line-height: 1.3; }
+    .movement h2 em { font-style: italic; }
+    .movement p { font-family: 'Nunito Sans', sans-serif; font-size: 14px; color: #999; max-width: 560px; margin: 0 auto 40px; line-height: 1.9; font-weight: 300; }
+    .email-form { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; max-width: 500px; margin: 0 auto; }
+    .email-input { flex: 1; min-width: 240px; padding: 16px 24px; background: transparent; border: 1px solid #444; color: #FDFBF7; font-family: 'Nunito Sans', sans-serif; font-size: 13px; }
+    .email-input:focus { outline: none; border-color: #666; }
+    .email-input::placeholder { color: #666; }
+    .btn-gold { background: #D4AF37; color: #2C2C2C; }
+    .email-note { font-family: 'Nunito Sans', sans-serif; font-size: 11px; color: #666; margin-top: 16px; }
+    
+    .partners { padding: 80px 40px; text-align: center; border-bottom: 1px solid #F0EBE3; }
+    .partners-quote { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: #666; font-style: italic; max-width: 600px; margin: 0 auto; }
+    
+    .products { max-width: 1200px; margin: 0 auto; padding: 40px 40px 120px; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 32px; }
+    .product-card { background: #fff; border: 1px solid #F0EBE3; cursor: pointer; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .product-card:hover { transform: translateY(-6px); }
+    .product-card:hover .product-img { transform: scale(1.04); }
+    .product-img-wrap { overflow: hidden; height: 380px; }
+    .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+    .product-info { padding: 24px; }
+    .product-header { display: flex; justify-content: space-between; align-items: baseline; }
+    .product-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; }
+    .product-price { font-family: 'Nunito Sans', sans-serif; font-size: 14px; color: #666; }
+    .product-colors { display: flex; gap: 6px; margin-top: 12px; }
+    .color-dot { width: 14px; height: 14px; border-radius: 50%; border: 1px solid #E8E4DD; }
+    
+    .back-link { margin-bottom: 40px; }
+    .collection-header { padding: 80px 40px; text-align: center; color: #fff; }
+    .collection-header-inner { max-width: 700px; margin: 0 auto; }
+    .collection-header .collection-icon { font-size: 48px; margin-bottom: 8px; }
+    .collection-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 400; margin-bottom: 12px; }
+    .collection-header .tagline { font-family: 'Nunito Sans', sans-serif; font-size: 14px; opacity: 0.9; letter-spacing: 1px; margin-bottom: 8px; }
+    .collection-header .desc { font-family: 'Nunito Sans', sans-serif; font-size: 13px; opacity: 0.7; font-weight: 300; }
+    
+    footer { border-top: 1px solid #F0EBE3; padding: 60px 40px; background: #FDFBF7; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 40px; }
+    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 20px; margin-bottom: 8px; }
+    .footer-tagline { font-family: 'Nunito Sans', sans-serif; font-size: 12px; color: #999; font-weight: 300; }
+    .footer-links { display: flex; gap: 40px; }
+    .footer-col-title { font-family: 'Nunito Sans', sans-serif; font-size: 10px; letter-spacing: 2px; color: #999; margin-bottom: 16px; }
+    .footer-link { display: block; margin-bottom: 8px; font-size: 12px; }
+    .footer-bottom { max-width: 1200px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid #F0EBE3; }
+    .footer-copy { font-family: 'Nunito Sans', sans-serif; font-size: 11px; color: #BBB; font-weight: 300; }
+    
+    .page { display: none; }
+    .page.active { display: block; animation: fadeIn 0.5s ease; }
+    
+    .notification { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; justify-content: center; padding: 16px; animation: notif 0.4s ease; }
+    .notification-inner { background: #2C2C2C; color: #FDFBF7; padding: 14px 40px; font-family: 'Nunito Sans', sans-serif; font-size: 12px; letter-spacing: 2px; }
+    .notification.hidden { display: none; }
+    
+    .cart-empty { text-align: center; padding: 80px 0; }
+    .cart-empty-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: #999; margin-bottom: 24px; }
+    .cart-empty-text { font-family: 'Nunito Sans', sans-serif; font-size: 14px; color: #999; margin-bottom: 40px; }
+    
+    .cart-items { border-top: 1px solid #F0EBE3; }
+    .cart-item { display: grid; grid-template-columns: 80px 1fr auto auto; gap: 24px; align-items: center; padding: 28px 0; border-bottom: 1px solid #F0EBE3; }
+    .cart-item-img { width: 80px; height: 80px; object-fit: cover; }
+    .cart-item-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; }
+    .cart-item-details { font-family: 'Nunito Sans', sans-serif; font-size: 12px; color: #999; margin-top: 4px; }
+    .cart-qty { display: flex; align-items: center; gap: 12px; }
+    .cart-qty-btn { background: none; border: 1px solid #E8E4DD; color: #666; width: 32px; height: 32px; cursor: pointer; font-family: 'Nunito Sans', sans-serif; font-size: 14px; }
+    .cart-qty-num { font-family: 'Nunito Sans', sans-serif; font-size: 14px; width: 24px; text-align: center; }
+    .cart-item-price { font-family: 'Nunito Sans', sans-serif; font-size: 16px; min-width: 60px; text-align: right; }
+    .cart-item-remove { background: none; border: none; color: #999; cursor: pointer; font-size: 18px; padding: 4px; }
+    .cart-footer { margin-top: 48px; display: flex; justify-content: space-between; align-items: end; }
+    .cart-subtotal-label { font-family: 'Nunito Sans', sans-serif; font-size: 11px; color: #999; letter-spacing: 2px; }
+    .cart-subtotal { font-family: 'Cormorant Garamond', serif; font-size: 36px; margin-top: 8px; }
+    .cart-shipping { font-family: 'Nunito Sans', sans-serif; font-size: 12px; color: #999; margin-top: 4px; }
+    
+    .product-detail { padding-top: 100px; max-width: 1100px; margin: 0 auto; padding: 100px 40px 120px; }
+    .product-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    @media (max-width: 900px) { .product-detail-grid { grid-template-columns: 1fr; } }
+    .product-detail-img { width: 100%; height: 600px; object-fit: cover; border: 1px solid #F0EBE3; }
+    .product-detail-collection { font-family: 'Nunito Sans', sans-serif; font-size: 11px; color: #999; letter-spacing: 3px; margin-bottom: 8px; }
+    .product-detail-name { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 400; }
+    .product-detail-price { font-family: 'Nunito Sans', sans-serif; font-size: 24px; color: #666; margin-top: 8px; margin-bottom: 40px; }
+    .option-label { font-family: 'Nunito Sans', sans-serif; font-size: 11px; color: #999; letter-spacing: 2px; margin-bottom: 12px; }
+    .color-options { display: flex; gap: 12px; margin-bottom: 32px; }
+    .color-option { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: all 0.2s; border: 2px solid #E8E4DD; }
+    .color-option.active { border-color: #2C2C2C; outline: 2px solid #2C2C2C; outline-offset: 3px; }
+    .size-options { display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
+    .size-btn { min-width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border: 1px solid #E8E4DD; background: transparent; color: #666; font-family: 'Nunito Sans', sans-serif; font-size: 11px; letter-spacing: 1px; cursor: pointer; transition: all 0.25s ease; }
+    .size-btn:hover { border-color: #2C2C2C; color: #2C2C2C; }
+    .size-btn.active { border-color: #2C2C2C; background: #2C2C2C; color: #FDFBF7; }
+    .product-quote { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: #666; line-height: 1.7; margin-bottom: 24px; }
+    .product-specs { border-top: 1px solid #F0EBE3; padding-top: 32px; margin-top: 48px; }
+    .spec-row { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #F5F2EC; }
+    .spec-label { font-family: 'Nunito Sans', sans-serif; font-size: 11px; color: #999; letter-spacing: 1px; }
+    .spec-value { font-family: 'Nunito Sans', sans-serif; font-size: 13px; color: #666; }
+    
+    .about-page { padding-top: 120px; max-width: 700px; margin: 0 auto; padding: 120px 40px; }
+    .about-page h1 { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; margin-bottom: 40px; line-height: 1.3; }
+    .about-page p { font-family: 'Nunito Sans', sans-serif; font-size: 15px; color: #666; line-height: 2; font-weight: 300; margin-bottom: 24px; }
+    .about-page strong { font-weight: 600; color: #2C2C2C; }
+  </style>
+</head>
+<body>
+  <!-- NOTIFICATION -->
+  <div id="notification" class="notification hidden">
+    <div class="notification-inner" id="notification-text"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <button class="nav-logo" onclick="showPage('home')">
+        <div class="nav-logo-sub">APPAREL FOR THE</div>
+        <div class="nav-logo-main">Thoughtful Human</div>
+      </button>
+      <div class="nav-links">
+        <button class="nav-link" onclick="showPage('home')">Collections</button>
+        <button class="nav-link" onclick="showPage('about')">Our Why</button>
+        <button class="nav-link" onclick="showPage('cart')" style="position: relative;">
+          Cart
+          <span id="cart-badge" class="cart-count" style="display: none;">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HOME PAGE -->
+  <div id="page-home" class="page active">
+    <div class="hero">
+      <div class="hero-circle-1"></div>
+      <div class="hero-circle-2"></div>
+      <div class="hero-content fade-up">
+        <div class="hero-tag">A CONSCIOUS APPAREL MOVEMENT</div>
+        <h1>Wear Your<br><em>Intention</em></h1>
+        <p>Clothing that speaks to the soul. Affirmations, ancient wisdom, and mindful design — for those who move through life with purpose.</p>
+        <button class="btn-primary" onclick="document.getElementById('collections-section').scrollIntoView({behavior:'smooth'})">EXPLORE COLLECTIONS</button>
+      </div>
+      <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+      </div>
+    </div>
+
+    <section id="collections-section" class="collections">
+      <div class="section-header">
+        <div class="section-tag">CURATED FOR THE JOURNEY</div>
+        <h2 class="section-title">Our Collections</h2>
+      </div>
+      <div class="collections-grid">
+        <div class="collection-card fade-up fade-up-1" style="background: #8B7355;" onclick="showCollection('vajra')">
+          <div class="collection-overlay"></div>
+          <div class="collection-content">
+            <div class="collection-icon">◇</div>
+            <h3 class="collection-name">Vajra Gear</h3>
+            <p class="collection-tagline">Strength of Diamond, Clarity of Mind</p>
+          </div>
+        </div>
+        <div class="collection-card fade-up fade-up-2" style="background: #B8860B;" onclick="showCollection('goddess')">
+          <div class="collection-overlay"></div>
+          <div class="collection-content">
+            <div class="collection-icon">✧</div>
+            <h3 class="collection-name">Awaken the Goddess</h3>
+            <p class="collection-tagline">Rise. Radiate. Remember.</p>
+          </div>
+        </div>
+        <div class="collection-card fade-up fade-up-3" style="background: #6B8E6B;" onclick="showCollection('itsok')">
+          <div class="collection-overlay"></div>
+          <div class="collection-content">
+            <div class="collection-icon">○</div>
+            <h3 class="collection-name">It's Ok to Be...</h3>
+            <p class="collection-tagline">Permission to Be Human</p>
+          </div>
+        </div>
+        <div class="collection-card fade-up fade-up-4" style="background: #708090;" onclick="showCollection('studio')">
+          <div class="collection-overlay"></div>
+          <div class="collection-content">
+            <div class="collection-icon">△</div>
+            <h3 class="collection-name">The Studio</h3>
+            <p class="collection-tagline">Move. Breathe. Flow.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="movement">
+      <div class="movement-inner">
+        <div class="section-tag" style="color: #888;">JOIN THE MOVEMENT</div>
+        <h2>This isn't just clothing.<br>It's a <em>conversation</em>.</h2>
+        <p>Every piece you wear carries an intention. A reminder. A connection to something bigger than ourselves. Join studios, practitioners, and conscious humans who are making mindful choices — one garment at a time.</p>
+        <div class="email-form">
+          <input type="email" class="email-input" placeholder="Enter your email" id="email-input">
+          <button class="btn-primary btn-gold" onclick="submitEmail()">JOIN US</button>
+        </div>
+        <p class="email-note">Launch special: 20% off your first order</p>
+      </div>
+    </section>
+
+    <section class="partners">
+      <div class="section-tag">PARTNERING WITH STUDIOS & CENTERS</div>
+      <p class="partners-quote">"Bring conscious apparel to your community. Special wholesale pricing for yoga studios, meditation centers, and Buddhist sanghas."</p>
+      <button class="btn-outline" style="margin-top: 32px;">BECOME A PARTNER</button>
+    </section>
+  </div>
+
+  <!-- COLLECTION PAGE -->
+  <div id="page-collection" class="page">
+    <div id="collection-header" class="collection-header" style="padding-top: 140px;">
+      <div class="collection-header-inner">
+        <div class="collection-icon" id="coll-icon"></div>
+        <h1 id="coll-name"></h1>
+        <p class="tagline" id="coll-tagline"></p>
+        <p class="desc" id="coll-desc"></p>
+      </div>
+    </div>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 32px 40px 0;">
+      <button class="nav-link back-link" onclick="showPage('home')">← All Collections</button>
+    </div>
+    <section class="products">
+      <div class="products-grid" id="products-grid"></div>
+    </section>
+  </div>
+
+  <!-- PRODUCT PAGE -->
+  <div id="page-product" class="page">
+    <div class="product-detail">
+      <button class="nav-link back-link" id="back-to-collection">← Back</button>
+      <div class="product-detail-grid">
+        <img id="pd-img" class="product-detail-img" src="" alt="">
+        <div>
+          <div class="product-detail-collection" id="pd-collection"></div>
+          <h1 class="product-detail-name" id="pd-name"></h1>
+          <div class="product-detail-price" id="pd-price"></div>
+          
+          <div class="option-label">COLOR</div>
+          <div class="color-options" id="pd-colors"></div>
+          
+          <div class="option-label">SIZE</div>
+          <div class="size-options" id="pd-sizes"></div>
+          
+          <button class="btn-primary" style="width: 100%; padding: 18px 40px;" onclick="addToCart()">ADD TO CART</button>
+          
+          <div class="product-specs">
+            <p class="product-quote" id="pd-quote"></p>
+            <div class="spec-row"><span class="spec-label">Material</span><span class="spec-value">100% Organic Cotton, 220GSM</span></div>
+            <div class="spec-row"><span class="spec-label">Fit</span><span class="spec-value">Relaxed, true to size</span></div>
+            <div class="spec-row"><span class="spec-label">Care</span><span class="spec-value">Machine wash cold, hang dry</span></div>
+            <div class="spec-row"><span class="spec-label">Made in</span><span class="spec-value">USA — Ethically produced</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART PAGE -->
+  <div id="page-cart" class="page">
+    <div style="padding-top: 100px; max-width: 800px; margin: 0 auto; padding: 100px 40px 120px;">
+      <button class="nav-link back-link" onclick="showPage('home')">← Continue Shopping</button>
+      <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 400; margin-bottom: 48px;">Your Cart</h1>
+      <div id="cart-content"></div>
+    </div>
+  </div>
+
+  <!-- ABOUT PAGE -->
+  <div id="page-about" class="page">
+    <div class="about-page">
+      <div class="section-tag">OUR WHY</div>
+      <h1>Clothing as a practice.</h1>
+      <p>We believe what you wear shapes how you move through the world. Every morning, getting dressed is an opportunity — a small ritual of intention.</p>
+      <p><strong>Vajra Gear</strong> honors the diamond-hard clarity of Buddhist practice. <strong>Awaken the Goddess</strong> reminds us of the divine feminine within. <strong>It's Ok to Be...</strong> offers gentle permission to be fully human. <strong>The Studio</strong> supports the body's movement through practice.</p>
+      <p>Each piece is ethically made, sustainably sourced, and designed to last. We partner with yoga studios, meditation centers, and Buddhist sanghas to bring conscious apparel to communities who value intention.</p>
+      <p>This is more than a brand. It's a movement. Join us.</p>
+      <button class="btn-primary" style="margin-top: 48px;" onclick="showPage('home')">EXPLORE COLLECTIONS</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Thoughtful Human</div>
+        <div class="footer-tagline">Apparel for the conscious journey.</div>
+      </div>
+      <div class="footer-links">
+        <div>
+          <div class="footer-col-title">COLLECTIONS</div>
+          <button class="nav-link footer-link" onclick="showCollection('vajra')">Vajra Gear</button>
+          <button class="nav-link footer-link" onclick="showCollection('goddess')">Awaken the Goddess</button>
+          <button class="nav-link footer-link" onclick="showCollection('itsok')">It's Ok to Be...</button>
+          <button class="nav-link footer-link" onclick="showCollection('studio')">The Studio</button>
+        </div>
+        <div>
+          <div class="footer-col-title">CONNECT</div>
+          <button class="nav-link footer-link">Studio Partners</button>
+          <button class="nav-link footer-link" onclick="showPage('about')">Our Why</button>
+          <button class="nav-link footer-link">Contact</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Thoughtful Human. Made with intention.</p>
+    </div>
+  </footer>
+
+  <script>
+    const COLLECTIONS = {
+      vajra: { name: "Vajra Gear", tagline: "Strength of Diamond, Clarity of Mind", desc: "Rooted in Buddhist tradition. Designed for practitioners.", color: "#8B7355", icon: "◇" },
+      goddess: { name: "Awaken the Goddess", tagline: "Rise. Radiate. Remember.", desc: "Affirmations woven into every thread.", color: "#B8860B", icon: "✧" },
+      itsok: { name: "It's Ok to Be...", tagline: "Permission to Be Human", desc: "Gentle reminders you're exactly where you need to be.", color: "#6B8E6B", icon: "○" },
+      studio: { name: "The Studio", tagline: "Move. Breathe. Flow.", desc: "Premium yoga & workout essentials.", color: "#708090", icon: "△" }
+    };
+
+    const PRODUCTS = [
+      { id: 1, collection: "vajra", name: "Vajra Symbol Tee", price: 48, sizes: ["S","M","L","XL"], colors: ["#2C2C2C", "#F5F0E8", "#8B7355"], image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=700&fit=crop" },
+      { id: 2, collection: "vajra", name: "Dharma Wheel Tank", price: 42, sizes: ["S","M","L","XL"], colors: ["#2C2C2C", "#F5F0E8"], image: "https://images.unsplash.com/photo-1503341504253-dff4f37f0218?w=600&h=700&fit=crop" },
+      { id: 3, collection: "vajra", name: "Lotus Unfolding Hoodie", price: 78, sizes: ["S","M","L","XL","XXL"], colors: ["#2C2C2C", "#4A4A4A"], image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=700&fit=crop" },
+      { id: 4, collection: "goddess", name: "I Am Worthy Tee", price: 46, sizes: ["XS","S","M","L","XL"], colors: ["#F5F0E8", "#B8860B", "#2C2C2C"], image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=700&fit=crop" },
+      { id: 5, collection: "goddess", name: "Divine Feminine Tank", price: 44, sizes: ["XS","S","M","L"], colors: ["#F5F0E8", "#D4AF37"], image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=700&fit=crop" },
+      { id: 6, collection: "goddess", name: "Radiant Light Crop", price: 38, sizes: ["XS","S","M","L"], colors: ["#F5F0E8", "#2C2C2C"], image: "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=600&h=700&fit=crop" },
+      { id: 7, collection: "itsok", name: "It's Ok to Rest Tee", price: 44, sizes: ["S","M","L","XL","XXL"], colors: ["#6B8E6B", "#F5F0E8", "#2C2C2C"], image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=700&fit=crop" },
+      { id: 8, collection: "itsok", name: "It's Ok to Feel Tee", price: 44, sizes: ["S","M","L","XL"], colors: ["#F5F0E8", "#A8B5A0"], image: "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=600&h=700&fit=crop" },
+      { id: 9, collection: "itsok", name: "It's Ok to Grow Hoodie", price: 72, sizes: ["S","M","L","XL"], colors: ["#6B8E6B", "#2C2C2C"], image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=700&fit=crop" },
+      { id: 10, collection: "studio", name: "Flow State Leggings", price: 68, sizes: ["XS","S","M","L","XL"], colors: ["#2C2C2C", "#708090", "#4A4A4A"], image: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&h=700&fit=crop" },
+      { id: 11, collection: "studio", name: "Breathe Tank", price: 42, sizes: ["XS","S","M","L"], colors: ["#F5F0E8", "#2C2C2C", "#708090"], image: "https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?w=600&h=700&fit=crop" },
+      { id: 12, collection: "studio", name: "Alignment Sports Bra", price: 52, sizes: ["XS","S","M","L"], colors: ["#2C2C2C", "#708090", "#F5F0E8"], image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&h=700&fit=crop" }
+    ];
+
+    let cart = [];
+    let currentCollection = null;
+    let currentProduct = null;
+    let selectedSize = null;
+    let selectedColor = 0;
+
+    function showPage(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + page).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function showCollection(id) {
+      currentCollection = id;
+      const coll = COLLECTIONS[id];
+      document.getElementById('collection-header').style.background = coll.color;
+      document.getElementById('coll-icon').textContent = coll.icon;
+      document.getElementById('coll-name').textContent = coll.name;
+      document.getElementById('coll-tagline').textContent = coll.tagline;
+      document.getElementById('coll-desc').textContent = coll.desc;
+      
+      const products = PRODUCTS.filter(p => p.collection === id);
+      const grid = document.getElementById('products-grid');
+      grid.innerHTML = products.map((p, i) => `
+        <div class="product-card fade-up fade-up-${i+1}" onclick="showProduct(${p.id})">
+          <div class="product-img-wrap">
+            <img class="product-img" src="${p.image}" alt="${p.name}">
+          </div>
+          <div class="product-info">
+            <div class="product-header">
+              <h3 class="product-name">${p.name}</h3>
+              <span class="product-price">$${p.price}</span>
+            </div>
+            <div class="product-colors">
+              ${p.colors.map(c => `<div class="color-dot" style="background:${c}"></div>`).join('')}
+            </div>
+          </div>
+        </div>
+      `).join('');
+      
+      showPage('collection');
+    }
+
+    function showProduct(id) {
+      currentProduct = PRODUCTS.find(p => p.id === id);
+      selectedSize = null;
+      selectedColor = 0;
+      
+      const coll = COLLECTIONS[currentProduct.collection];
+      document.getElementById('pd-img').src = currentProduct.image;
+      document.getElementById('pd-collection').textContent = coll.name.toUpperCase();
+      document.getElementById('pd-name').textContent = currentProduct.name;
+      document.getElementById('pd-price').textContent = '$' + currentProduct.price;
+      document.getElementById('pd-quote').textContent = '"' + coll.tagline + '"';
+      
+      document.getElementById('back-to-collection').onclick = () => showCollection(currentProduct.collection);
+      
+      document.getElementById('pd-colors').innerHTML = currentProduct.colors.map((c, i) => `
+        <button class="color-option ${i === 0 ? 'active' : ''}" style="background:${c}" onclick="selectColor(${i}, this)"></button>
+      `).join('');
+      
+      document.getElementById('pd-sizes').innerHTML = currentProduct.sizes.map(s => `
+        <button class="size-btn" onclick="selectSize('${s}', this)">${s}</button>
+      `).join('');
+      
+      showPage('product');
+    }
+
+    function selectColor(idx, el) {
+      selectedColor = idx;
+      document.querySelectorAll('#pd-colors .color-option').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function selectSize(size, el) {
+      selectedSize = size;
+      document.querySelectorAll('#pd-sizes .size-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function addToCart() {
+      if (!selectedSize) {
+        showNotification('Please select a size');
+        return;
+      }
+      
+      const existing = cart.find(i => i.product.id === currentProduct.id && i.size === selectedSize && i.colorIdx === selectedColor);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ product: currentProduct, size: selectedSize, colorIdx: selectedColor, qty: 1 });
+      }
+      
+      updateCartBadge();
+      showNotification('Added to cart');
+    }
+
+    function updateCartBadge() {
+      const count = cart.reduce((sum, i) => sum + i.qty, 0);
+      const badge = document.getElementById('cart-badge');
+      if (count > 0) {
+        badge.style.display = 'flex';
+        badge.textContent = count;
+      } else {
+        badge.style.display = 'none';
+      }
+    }
+
+    function renderCart() {
+      const content = document.getElementById('cart-content');
+      if (cart.length === 0) {
+        content.innerHTML = `
+          <div class="cart-empty">
+            <p class="cart-empty-title">Your cart is empty</p>
+            <p class="cart-empty-text">Begin your journey with conscious apparel.</p>
+            <button class="btn-primary" onclick="showPage('home')">EXPLORE COLLECTIONS</button>
+          </div>
+        `;
+        return;
+      }
+      
+      const total = cart.reduce((sum, i) => sum + i.product.price * i.qty, 0);
+      content.innerHTML = `
+        <div class="cart-items">
+          ${cart.map((item, i) => `
+            <div class="cart-item">
+              <img class="cart-item-img" src="${item.product.image}" alt="${item.product.name}">
+              <div>
+                <div class="cart-item-name">${item.product.name}</div>
+                <div class="cart-item-details">
+                  <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${item.product.colors[item.colorIdx]};margin-right:8px;vertical-align:middle;border:1px solid #E8E4DD;"></span>
+                  Size ${item.size}
+                </div>
+              </div>
+              <div class="cart-qty">
+                <button class="cart-qty-btn" onclick="updateQty(${i}, -1)">−</button>
+                <span class="cart-qty-num">${item.qty}</span>
+                <button class="cart-qty-btn" onclick="updateQty(${i}, 1)">+</button>
+              </div>
+              <div style="display:flex;align-items:center;gap:20px;">
+                <span class="cart-item-price">$${item.product.price * item.qty}</span>
+                <button class="cart-item-remove" onclick="removeFromCart(${i})">×</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="cart-footer">
+          <div>
+            <div class="cart-subtotal-label">SUBTOTAL</div>
+            <div class="cart-subtotal">$${total}</div>
+            <div class="cart-shipping">${total >= 100 ? '✓ Free shipping included' : '$' + (100 - total) + ' away from free shipping'}</div>
+          </div>
+          <button class="btn-primary" style="padding: 18px 48px;">CHECKOUT →</button>
+        </div>
+      `;
+    }
+
+    function updateQty(idx, delta) {
+      cart[idx].qty += delta;
+      if (cart[idx].qty <= 0) cart.splice(idx, 1);
+      updateCartBadge();
+      renderCart();
+    }
+
+    function removeFromCart(idx) {
+      cart.splice(idx, 1);
+      updateCartBadge();
+      renderCart();
+    }
+
+    function showNotification(msg) {
+      const notif = document.getElementById('notification');
+      document.getElementById('notification-text').textContent = msg;
+      notif.classList.remove('hidden');
+      setTimeout(() => notif.classList.add('hidden'), 2500);
+    }
+
+    function submitEmail() {
+      const email = document.getElementById('email-input').value;
+      if (email) {
+        showNotification('Welcome to the movement! Check your inbox.');
+        document.getElementById('email-input').value = '';
+      }
+    }
+
+    // Render cart when viewing cart page
+    const cartObserver = new MutationObserver(() => {
+      if (document.getElementById('page-cart').classList.contains('active')) {
+        renderCart();
+      }
+    });
+    cartObserver.observe(document.getElementById('page-cart'), { attributes: true });
+  </script>
+</body>
+</html>
